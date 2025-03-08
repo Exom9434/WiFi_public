@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.example.db.LocationHistoryDAO, com.example.model.LocationHistory, java.util.List" %>
+<%@ page import="WiFi_public.LocationHistoryDao, WiFi_public.LocationHistory, java.util.List" %>
 <%
     // 위치 히스토리 조회
-    List<LocationHistory> historyList = LocationHistoryDAO.getLocationHistory();
+    List<LocationHistory> historyList = LocationHistoryDao.getLocationHistory();
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -38,8 +38,8 @@
         <% for (LocationHistory history : historyList) { %>
         <tr>
             <td><%= history.getId() %></td>
-            <td><%= history.getLat() %></td>
-            <td><%= history.getLon() %></td>
+            <td><%= history.getxPos() %></td>
+            <td><%= history.getyPos() %></td>
             <td><%= history.getSearchedAt() %></td>
             <td><button class="btn btn-danger btn-sm" onclick="deleteLocation(<%= history.getId() %>)">삭제</button></td>
         </tr>

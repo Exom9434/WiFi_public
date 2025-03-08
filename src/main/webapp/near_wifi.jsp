@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.example.db.WifiDAO, com.example.model.WifiInfo, java.util.List" %>
+<%@ page import="WiFi_public.WifiInfo, java.util.List" %>
 <%
-  float lat = Float.parseFloat(request.getParameter("lat"));
-  float lon = Float.parseFloat(request.getParameter("lon"));
-
-  List<WifiInfo> wifiList = WifiDAO.getNearestWifi(lat, lon);
+  List<WifiInfo> wifiList = (List<WifiInfo>) request.getAttribute("wifiList");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -19,7 +16,6 @@
   <table class="table table-bordered">
     <thead>
     <tr>
-      <th>거리(Km)</th>
       <th>자치구</th>
       <th>와이파이명</th>
       <th>도로명 주소</th>
@@ -38,9 +34,9 @@
     </tr>
     </thead>
     <tbody>
-    <% for (WifiInfo wifi : wifiList) { %>
+    <% if (wifiList != null) {
+      for (WifiInfo wifi : wifiList) { %>
     <tr>
-      <td><%= String.format("%.2f", wifi.getDistance()) %></td>
       <td><%= wifi.getDistrict() %></td>
       <td><%= wifi.getWifiName() %></td>
       <td><%= wifi.getRoadAddress() %></td>
@@ -51,11 +47,16 @@
       <td><%= wifi.getServiceType() %></td>
       <td><%= wifi.getChannelType() %></td>
       <td><%= wifi.getInstallYear() %></td>
-      <td><%= wifi.isIn() ? "실내" : "실외" %></td>
+      <td><%= wifi.getIsIn() ? "실내" : "실외" %></td>
       <td><%= wifi.getAccessEnv() %></td>
-      <td><%= wifi.getLati() %></td>
-      <td><%= wifi.getLongi() %></td>
+      <td><%= wifi.getYPos() %></td>
+      <td><%= wifi.getXPos() %></td>
       <td><%= wifi.getWorkDate() %></td>
+    </tr>
+    <% }
+    } else { %>
+    <tr>
+      <td colspan="16" class="text-center">와이파이 정보를 불러올 수 없습니다.</td>
     </tr>
     <% } %>
     </tbody>

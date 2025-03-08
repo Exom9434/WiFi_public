@@ -1,10 +1,8 @@
-package wifi_public;
+package WiFi_public;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DBConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/public_wifi?serverTimezone=UTC";
