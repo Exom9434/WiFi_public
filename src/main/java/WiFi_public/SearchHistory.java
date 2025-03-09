@@ -8,7 +8,7 @@ public class SearchHistory {
 
     // 위치 저장 메서드
     public static void saveLocation(float xPos, float yPos) {
-        String sql = "INSERT INTO location_history (id, x_pos, y_pos, search_date) VALUES (?, ?, ?, NOW())";
+        String sql = "INSERT INTO search_wifi (id, x_pos, y_pos, search_date) VALUES (?, ?, ?, NOW())";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -27,7 +27,7 @@ public class SearchHistory {
     // 최근 조회한 위치 목록 조회 메서드
     public static List<LocationHistory> getLocationHistory() {
         List<LocationHistory> historyList = new ArrayList<>();
-        String sql = "SELECT * FROM location_history ORDER BY search_date DESC";
+        String sql = "SELECT * FROM search_wifi ORDER BY search_date DESC";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -50,7 +50,7 @@ public class SearchHistory {
 
     // 위치 삭제 메서드
     public static void deleteLocation(String id) {
-        String sql = "DELETE FROM location_history WHERE id = ?";
+        String sql = "DELETE FROM search_wifi WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="application/json; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.io.BufferedReader, java.net.HttpURLConnection, java.net.URL, java.sql.Timestamp, java.sql.SQLException" %>
-<%@ page import="WiFi_public.WifiDao" %>
-<%@ page import="org.json.JSONObject, org.json.JSONArray" %>
+<%@ page import="WiFi_public.WifiDao, WiFi_public.WiFiFetchServlet" %>
+<%@ page import="org.json.JSONObject, org.json.JSONArray" %><%@ page import="WiFi_public.WifiServlet"%>
 
 <%
     String apiKey = "575843755373696c3130306c4b624976"; // 본인의 API 키
@@ -52,7 +52,7 @@
             Timestamp workDate = Timestamp.valueOf(wifi.getString("WORK_DTTM").replace("T", " ")); // 작업일자
 
             // DB 저장
-            WifiDao.insertWifiInfo(id, district, wifiName, roadAddress, detailAddress, installPosition, installType,
+            WifiServlet.insertWifiInfo(id, district, wifiName, roadAddress, detailAddress, installPosition, installType,
                     installOrg, serviceType, channelType, installYear, isIn, accessEnv, xCoord, yCoord, workDate);
         }
 

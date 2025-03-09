@@ -9,11 +9,29 @@
   <meta charset="UTF-8">
   <title>근처 와이파이 정보</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    .container {
+      margin-top: 20px;
+    }
+    .header {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .table thead th {
+      background-color: green;
+      color: white;
+      text-align: center;
+    }
+    .text-center {
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-<div class="container mt-3">
-  <h2>가장 가까운 와이파이 20개</h2>
-  <table class="table table-bordered">
+<div class="container">
+  <div class="header">가장 가까운 와이파이 20개</div>
+  <table class="table table-bordered mt-3">
     <thead>
     <tr>
       <th>자치구</th>
@@ -34,29 +52,29 @@
     </tr>
     </thead>
     <tbody>
-    <% if (wifiList != null) {
+    <% if (wifiList != null && !wifiList.isEmpty()) {
       for (WifiInfo wifi : wifiList) { %>
     <tr>
-      <td><%= wifi.getDistrict() %></td>
-      <td><%= wifi.getWifiName() %></td>
-      <td><%= wifi.getRoadAddress() %></td>
-      <td><%= wifi.getDetailAddress() %></td>
-      <td><%= wifi.getInstallPosition() %></td>
-      <td><%= wifi.getInstallType() %></td>
-      <td><%= wifi.getInstallOrg() %></td>
-      <td><%= wifi.getServiceType() %></td>
-      <td><%= wifi.getChannelType() %></td>
-      <td><%= wifi.getInstallYear() %></td>
-      <td><%= wifi.getIsIn() ? "실내" : "실외" %></td>
-      <td><%= wifi.getAccessEnv() %></td>
-      <td><%= wifi.getYPos() %></td>
-      <td><%= wifi.getXPos() %></td>
-      <td><%= wifi.getWorkDate() %></td>
+      <td class="text-center"><%= wifi.getDistrict() %></td>
+      <td class="text-center"><%= wifi.getWifiName() %></td>
+      <td class="text-center"><%= wifi.getRoadAddress() %></td>
+      <td class="text-center"><%= wifi.getDetailAddress() %></td>
+      <td class="text-center"><%= wifi.getInstallPosition() %></td>
+      <td class="text-center"><%= wifi.getInstallType() %></td>
+      <td class="text-center"><%= wifi.getInstallOrg() %></td>
+      <td class="text-center"><%= wifi.getServiceType() %></td>
+      <td class="text-center"><%= wifi.getChannelType() %></td>
+      <td class="text-center"><%= wifi.getInstallYear() %></td>
+      <td class="text-center"><%= wifi.getIsIn() ? "실내" : "실외" %></td>
+      <td class="text-center"><%= wifi.getAccessEnv() %></td>
+      <td class="text-center"><%= wifi.getYPos() %></td>
+      <td class="text-center"><%= wifi.getXPos() %></td>
+      <td class="text-center"><%= wifi.getWorkDate() %></td>
     </tr>
     <% }
     } else { %>
     <tr>
-      <td colspan="16" class="text-center">와이파이 정보를 불러올 수 없습니다.</td>
+      <td colspan="15" class="text-center">와이파이 정보를 불러올 수 없습니다.</td>
     </tr>
     <% } %>
     </tbody>

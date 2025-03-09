@@ -8,7 +8,7 @@ public class LocationHistoryDao {
 
     // 위치 저장 메서드
     public static void saveLocation(float lat, float lon) {
-        String sql = "INSERT INTO location_history (lat, lon) VALUES (?, ?)";
+        String sql = "INSERT INTO search_wifi (lat, lon) VALUES (?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -23,7 +23,7 @@ public class LocationHistoryDao {
     // 최근 조회한 위치 목록 조회 메서드
     public static List<LocationHistory> getLocationHistory() {
         List<LocationHistory> historyList = new ArrayList<>();
-        String sql = "SELECT * FROM location_history ORDER BY searched_at DESC";
+        String sql = "SELECT * FROM search_wifi ORDER BY search_date DESC";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -32,9 +32,9 @@ public class LocationHistoryDao {
             while (rs.next()) {
                 LocationHistory history = new LocationHistory(
                         rs.getString("id"),
-                        rs.getFloat("lat"),
-                        rs.getFloat("lon"),
-                        rs.getTimestamp("searched_at").toString()
+                        rs.getFloat("y_pos"),
+                        rs.getFloat("x_pos"),
+                        rs.getTimestamp("search_date").toString()
                 );
                 historyList.add(history);
             }
@@ -46,7 +46,7 @@ public class LocationHistoryDao {
 
     // 위치 삭제 메서드
     public static void deleteLocation(int id) {
-        String sql = "DELETE FROM location_history WHERE id = ?";
+        String sql = "DELETE FROM search_wifi WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

@@ -42,12 +42,11 @@
             <th>실내외구분</th>
             <th>Y 좌표</th>
             <th>X 좌표</th>
-            <th>거리(Km)</th>
         </tr>
         </thead>
         <tbody id="wifiTableBody">
         <tr>
-            <td colspan="10" class="text-center">위치 정보를 입력한 후에 조회해 주세요.</td>
+            <td colspan="9" class="text-center">위치 정보를 입력한 후에 조회해 주세요.</td>
         </tr>
         </tbody>
     </table>
@@ -64,8 +63,8 @@
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 position => {
-                    document.getElementById("x_pos").value = position.coords.longitude.toFixed(6);
-                    document.getElementById("y_pos").value = position.coords.latitude.toFixed(6);
+                    document.getElementById("y_pos").value = position.coords.longitude.toFixed(6);
+                    document.getElementById("x_pos").value = position.coords.latitude.toFixed(6);
                 },
                 error => alert("위치 정보를 가져올 수 없습니다. 위치 서비스가 활성화되어 있는지 확인하세요.")
             );
@@ -100,7 +99,7 @@
         tableBody.innerHTML = "";
 
         if (!data.wifi_list || data.wifi_list.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="10" class="text-center">근처 Wi-Fi 정보를 찾을 수 없습니다.</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="9" class="text-center">근처 Wi-Fi 정보를 찾을 수 없습니다.</td></tr>`;
             return;
         }
 
@@ -116,7 +115,6 @@
             <td>${wifi.is_in || "-"}</td>
             <td>${wifi.y_pos || "-"}</td>
             <td>${wifi.x_pos || "-"}</td>
-            <td>${wifi.distance ? wifi.distance.toFixed(2) + " km" : "- km"}</td>
             `;
             tableBody.appendChild(row);
         });
@@ -141,6 +139,7 @@
             .then(data => alert(data.message))
             .catch(error => console.error("❌ API 데이터 가져오기 오류:", error));
     }
+
     function goHome() {
         const projectName = window.location.pathname.split('/')[1];
         window.location.href = `/${projectName}/index.jsp`; // 홈 화면 경로로 이동
