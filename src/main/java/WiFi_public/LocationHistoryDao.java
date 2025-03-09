@@ -10,13 +10,24 @@ public class LocationHistoryDao {
     public static void saveLocation(float lat, float lon) {
         String sql = "INSERT INTO search_wifi (lat, lon) VALUES (?, ?)";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = DBConnection.getConnection(); // 매번 새로운 DB 연결
+            pstmt = conn.prepareStatement(sql);
             pstmt.setFloat(1, lat);
             pstmt.setFloat(2, lon);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // 허술한 예외 처리 (로깅 없이 그냥 출력)
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close(); // 매번 연결을 닫아버려서 비효율적
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -25,9 +36,14 @@ public class LocationHistoryDao {
         List<LocationHistory> historyList = new ArrayList<>();
         String sql = "SELECT * FROM search_wifi ORDER BY search_date DESC";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBConnection.getConnection(); // 매번 새로운 DB 연결
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 LocationHistory history = new LocationHistory(
@@ -39,7 +55,15 @@ public class LocationHistoryDao {
                 historyList.add(history);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // 허술한 예외 처리
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close(); // 매번 연결을 닫아버림
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return historyList;
     }
@@ -48,12 +72,23 @@ public class LocationHistoryDao {
     public static void deleteLocation(int id) {
         String sql = "DELETE FROM search_wifi WHERE id = ?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = DBConnection.getConnection(); // 매번 새로운 DB 연결
+            pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // 허술한 예외 처리
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close(); // 매번 연결을 닫아버림
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/public_wifi?serverTimezone=UTC";
-    private static final String USER = "root";  // MySQL 사용자 이름
+    private static final String USER = "root";  //ID
     private static final String PASSWORD = "zerobase";  // MySQL 비밀번호
 
     static {

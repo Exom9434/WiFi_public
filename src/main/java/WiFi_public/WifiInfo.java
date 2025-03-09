@@ -20,7 +20,7 @@ public class WifiInfo {
     private float yPos;
     private Timestamp workDate;
 
-    // Constructor
+    
     public WifiInfo(String id, String district, String wifiName, String roadAddress, String detailAddress,
                     String installPosition, String installType, String installOrg, String serviceType,
                     String channelType, int installYear, String isIn, String accessEnv, float xPos, float yPos,
@@ -43,7 +43,7 @@ public class WifiInfo {
         this.workDate = workDate;
     }
 
-    // Getters and Setters
+    // 정보 가져올 수 있도록 구현 해야함(GET?)
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 

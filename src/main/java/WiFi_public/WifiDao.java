@@ -62,7 +62,7 @@ public class WifiDao {
     }
 
     /**
-     * Wi-Fi 정보를 DB에 저장하는 메서드
+     * Wi-Fi 정보를 DB에 저장
      */
     public static void insertOrUpdateWifiInfo(String id, String district, String wifiName, String roadAddress,
                                               String detailAddress, String installPosition, String installType,
@@ -135,23 +135,6 @@ public class WifiDao {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.executeUpdate();
-        }
-    }
-
-    /**
-     * 특정 ID의 Wi-Fi 정보를 DB에서 삭제하는 메서드
-     */
-    public static void deleteLocation(String id) throws SQLException {
-        String sql = "DELETE FROM wifi_info WHERE id = ?";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, id); // ✅ Ensure ID is stored as String
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "DB 삭제 실패", e);
-            throw e;
         }
     }
 }

@@ -1,10 +1,11 @@
+<!-- 백엔드에서 직접 처리하기로 해서 삭제 필요
 <%@ page language="java" contentType="application/json; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.io.BufferedReader, java.net.HttpURLConnection, java.net.URL, java.sql.Timestamp, java.sql.SQLException" %>
 <%@ page import="WiFi_public.WifiDao, WiFi_public.WiFiFetchServlet" %>
 <%@ page import="org.json.JSONObject, org.json.JSONArray" %><%@ page import="WiFi_public.WifiServlet"%>
 
 <%
-    String apiKey = "575843755373696c3130306c4b624976"; // 본인의 API 키
+    String apiKey = "575843755373696c3130306c4b624976";
     String apiUrl = "http://openapi.seoul.go.kr:8088/" + apiKey + "/json/TbPublicWifiInfo/1/5/";
 
     response.setContentType("application/json");
@@ -77,4 +78,4 @@
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         out.print(errorJson.toString());
     }
-%>
+%> -->

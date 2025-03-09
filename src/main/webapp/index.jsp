@@ -59,6 +59,7 @@
         document.getElementById("fetchWifiData").addEventListener("click", fetchWifiData);
     });
 
+    ///사용자 위치정보 저장
     function getUserLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -72,7 +73,7 @@
             alert("이 브라우저에서는 위치 정보를 지원하지 않습니다.");
         }
     }
-
+    ///가까운 위치정보 검색하도록 처리하는 함수
     function fetchNearbyWifi() {
         const xPos = document.getElementById("x_pos").value.trim();
         const yPos = document.getElementById("y_pos").value.trim();
@@ -89,7 +90,7 @@
             .then(response => response.json())
             .then(data => {
                 updateWifiTable(data);
-                saveSearchHistory(xPos, yPos);  // DB에 검색 기록 저장
+                saveSearchHistory(xPos, yPos);  // DB에 검색 기록 저장해야 함
             })
             .catch(error => console.error("❌ Fetch 오류:", error));
     }
@@ -126,10 +127,10 @@
 
         fetch(url, { method: "POST" })
             .then(response => response.json())
-            .then(data => console.log("✅ 검색 기록 저장 완료:", data))
-            .catch(error => console.error("❌ 검색 기록 저장 실패:", error));
+            .then(data => console.log("검색 기록 저장 완료:", data))
+            .catch(error => console.error("검색 기록 저장 실패:", error));
     }
-
+// API 정보 불러오는 함수
     function fetchWifiData() {
         const projectName = window.location.pathname.split('/')[1];
         const url = `${window.location.origin}/${projectName}/fetch_api_data`;
@@ -137,12 +138,12 @@
         fetch(url)
             .then(response => response.json())
             .then(data => alert(data.message))
-            .catch(error => console.error("❌ API 데이터 가져오기 오류:", error));
+            .catch(error => console.error("API 데이터 가져오기 오류:", error));
     }
-
+// 홈 화면으로 이동
     function goHome() {
         const projectName = window.location.pathname.split('/')[1];
-        window.location.href = `/${projectName}/index.jsp`; // 홈 화면 경로로 이동
+        window.location.href = `/${projectName}/index.jsp`; 
     }
 </script>
 

@@ -40,10 +40,10 @@ public class WifiServlet extends HttpServlet {
         }
 
         try {
-            // 데이터 조회 (가까운 Wi-Fi 정보 가져오기)
+            // 데이터 조회 기능 구현해야 함
             List<WifiInfo> wifiList = WifiDao.getNearestWifi(xPos, yPos);
 
-            // JSON 변환
+            // JSON 변환해야 함
             JSONObject jsonResponse = new JSONObject();
             JSONArray wifiArray = new JSONArray();
 
@@ -71,13 +71,13 @@ public class WifiServlet extends HttpServlet {
 
             jsonResponse.put("wifi_list", wifiArray);
 
-            // JSON 응답 전송
+            // JSON으로 해서 응답 전송
             response.setContentType("application/json; charset=UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
             PrintWriter out = response.getWriter();
             out.print(jsonResponse.toString());
             out.flush();
-
+            //오류 발생시 메세지(인터넷 자료 참고)
         } catch (SQLException e) {
             e.printStackTrace();
             response.setContentType("application/json; charset=UTF-8");

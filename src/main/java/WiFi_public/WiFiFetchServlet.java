@@ -16,18 +16,19 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+///정보 가져오는 함수
 @WebServlet("/fetch_api_data")
 public class WiFiFetchServlet extends HttpServlet {
     private static final String API_KEY = "575843755373696c3130306c4b624976";
-    private static final int TOTAL_COUNT = 25521; // 총 데이터 개수
-    private static final int BATCH_SIZE = 1000;   // 한 번에 가져올 데이터 개수
+    private static final int TOTAL_COUNT = 25521; // 총 데이터 개수 하드 코딩...
+    private static final int BATCH_SIZE = 1000;   // 한 번에 가져올 데이터 개수(최대치가 1000)
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json; charset=UTF-8");
 
         try {
-            // 기존 Wi-Fi 데이터 삭제
+            // 기존 Wi-Fi 데이터는 삭제(중복KEY 에러 발생문제 해결)
             WifiDao.clearWifiTable();
 
             int totalInserted = 0;
@@ -42,13 +43,13 @@ public class WiFiFetchServlet extends HttpServlet {
 
             // 응답 전송
             if (totalInserted > 0) {
-                sendSuccessResponse(response, "✅ Wi-Fi 데이터 " + totalInserted + "개 저장 완료!");
+                sendSuccessResponse(response, "Wi-Fi 데이터 " + totalInserted + "개 저장");
             } else {
-                sendErrorResponse(response, "⚠️ 저장된 데이터가 없습니다.");
+                sendErrorResponse(response, "저장된 데이터가 없습니다.");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            sendErrorResponse(response, "❌ 서버 오류 발생!");
+            sendErrorResponse(response, "서버 오류 발생");
         }
     }
 
@@ -73,7 +74,8 @@ public class WiFiFetchServlet extends HttpServlet {
     }
 
     /**
-     * JSON 데이터를 파싱하여 DB에 저장하는 메서드
+     * JSON 파싱해서 저장
+     * 개선점-> 파싱과 저장 처리 따로 진행해야 함
      */
     private int parseAndSaveWifiData(String jsonData) {
         try {

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SearchHistory {
 
-    // 위치 저장 메서드
+    // 조회 기록 저장 
     public static void saveLocation(float xPos, float yPos) {
         String sql = "INSERT INTO search_wifi (id, x_pos, y_pos, search_date) VALUES (?, ?, ?, NOW())";
 
@@ -61,7 +61,7 @@ public class SearchHistory {
         }
     }
 
-    // 유니크한 ID 생성 메서드 (예: UUID 기반)
+    // 히스토리(HIS) + UUID 사용해서 생성 
     private static String generateUniqueId() {
         return "HIS" + System.currentTimeMillis();
     }
